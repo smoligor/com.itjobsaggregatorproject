@@ -57,7 +57,6 @@ public class WorkUaJobsParserImpl implements JobsParser {
             e.printStackTrace();
         }
         Elements links = doc.select("a[href]");
-        // links.forEach(e->System.out.println(e));
         List<String> jobLinks = links.stream().map(link -> link.attr("abs:href")).filter
                 (e -> e.length() == 36).collect(Collectors.toList());
         return jobLinks;
