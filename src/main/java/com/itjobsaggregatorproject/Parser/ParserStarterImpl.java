@@ -21,24 +21,25 @@ public class ParserStarterImpl implements ParserStarter {
 
     @EventListener(ContextRefreshedEvent.class)
     public void contextRefreshedEvent() {
-        while (true) {
-            boolean isFirstRoutine = true;
-            System.out.println("Starting parsing routine...");
-            if (jobsService.getAll().size() > 100) {
-                isFirstRoutine = false;
-
-            }
-            List<Job> parsedJobs = jobsParser.parseJobs(isFirstRoutine);
-            List<Job> persistedJobs = jobsService.getAll();
-            parsedJobs.removeAll(persistedJobs);
-            parsedJobs.forEach(jobsService::save);
-            System.out.println("Parsing routine ended. " + parsedJobs.size() + " new jobs added.");
-            try {
-                int threeHoursInMs = 10800000;
-                sleep(threeHoursInMs);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        System.out.println("Hello!!!!!");
+//        while (true) {
+//            boolean isFirstRoutine = true;
+//            System.out.println("Starting parsing routine...");
+//            if (jobsService.getAll().size() > 100) {
+//                isFirstRoutine = false;
+//
+//            }
+//            List<Job> parsedJobs = jobsParser.parseJobs(isFirstRoutine);
+//            List<Job> persistedJobs = jobsService.getAll();
+//            parsedJobs.removeAll(persistedJobs);
+//            parsedJobs.forEach(jobsService::save);
+//            System.out.println("Parsing routine ended. " + parsedJobs.size() + " new jobs added.");
+//            try {
+//                int threeHoursInMs = 10800000;
+//                sleep(threeHoursInMs);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+ //       }
     }
 }
