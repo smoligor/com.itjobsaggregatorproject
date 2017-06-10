@@ -1,6 +1,5 @@
 package com.itjobsaggregatorproject;
 
-import com.itjobsaggregatorproject.Entity.Job;
 import com.itjobsaggregatorproject.Parser.JobsParser;
 import com.itjobsaggregatorproject.Service.JobsService;
 import org.junit.Test;
@@ -21,5 +20,4 @@ public class DemoApplicationTests {
     public void contextLoads() {
 
     }
-
 }
