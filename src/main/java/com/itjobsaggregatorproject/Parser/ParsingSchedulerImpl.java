@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ParsingScheduler {
+public class ParsingSchedulerImpl implements ParserScheduler {
     @Autowired
     JobsService jobsService;
     @Autowired
