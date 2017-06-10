@@ -37,13 +37,12 @@ public class WorkUaJobsParserImpl implements JobsParser {
         lastPageNumberRawString = lastPageNumberRawString.substring(lastPageNumberRawString.indexOf("а "), lastPageNumberRawString.indexOf("а ") + 5);
         String parsedString = lastPageNumberRawString.replace("а ", "");
         int numberOfLastPage = Integer.valueOf(parsedString);
-        if (isFirstParsingRoutine == false)
-        {
+        if (isFirstParsingRoutine == false) {
             numberOfLastPage = 30;
         }
-            for (int i = 1; i <= numberOfLastPage; i++) {
-                pageLinks.add("https://www.work.ua/ua/jobs-kyiv-it/?page=" + i);
-            }
+        for (int i = 1; i <= numberOfLastPage; i++) {
+            pageLinks.add("https://www.work.ua/ua/jobs-kyiv-it/?page=" + i);
+        }
         pageLinks.forEach(e -> jobLinks.addAll(parseJobLinksFromPage(e)));
         for (String jobLink : jobLinks) {
             Job job = new Job();
@@ -103,8 +102,6 @@ public class WorkUaJobsParserImpl implements JobsParser {
             }
 
         }
-
-
     }
 }
 
