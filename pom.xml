@@ -6,7 +6,7 @@
 	<groupId>com.itjobsaggregatorproject</groupId>
 	<artifactId>com.itjobsaggregatorproject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>demo</name>
 	<description>itjobsaggregatorproject</description>

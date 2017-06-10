@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Component
 public class WorkUaJobsParserImpl implements JobsParser {
     @Override
-    public List<Job> parseJobs() {
+    public List<Job> parseJobs(boolean isFirstParsingRoutine) {
 
         Set<String> jobLinks = new HashSet<>();
         List<String> pageLinks = new ArrayList<>();
@@ -37,9 +37,13 @@ public class WorkUaJobsParserImpl implements JobsParser {
         lastPageNumberRawString = lastPageNumberRawString.substring(lastPageNumberRawString.indexOf("а "), lastPageNumberRawString.indexOf("а ") + 5);
         String parsedString = lastPageNumberRawString.replace("а ", "");
         int numberOfLastPage = Integer.valueOf(parsedString);
-        for (int i = 1; i <= numberOfLastPage; i++) {
-            pageLinks.add("https://www.work.ua/ua/jobs-kyiv-it/?page=" + i);
+        if (isFirstParsingRoutine == false)
+        {
+            numberOfLastPage = 30;
         }
+            for (int i = 1; i <= numberOfLastPage; i++) {
+                pageLinks.add("https://www.work.ua/ua/jobs-kyiv-it/?page=" + i);
+            }
         pageLinks.forEach(e -> jobLinks.addAll(parseJobLinksFromPage(e)));
         for (String jobLink : jobLinks) {
             Job job = new Job();
@@ -69,32 +73,38 @@ public class WorkUaJobsParserImpl implements JobsParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Elements elements = doc.select("dl");
-        Element jobDescriptionList = elements.first();
+        if (doc != null) {
+            Elements elements = doc.select("dl");
+            if (elements != null) {
+                Element jobDescriptionList = elements.first();
+                Company company = new Company();
+                job.setLink(jobLink);
+                company.setName(jobDescriptionList.select("dt:contains(Компанія:)+dd").first().text());
+                String companyLink = "https://www.work.ua/" + jobDescriptionList.select("a").attr("href").toString();
+                company.setLink(companyLink);
+                Elements contacts = jobDescriptionList.select("dt:contains(Контактна особа:)+dd");
+                if (!contacts.isEmpty()) {
+                    job.setContact(contacts.first().text());
+                }
+                Elements contactPhones = jobDescriptionList.select("dt:contains(Телефон:)+dd");
 
-        Company company = new Company();
-        job.setLink(jobLink);
-        company.setName(jobDescriptionList.select("dt:contains(Компанія:)+dd").first().text());
-        String companyLink = "https://www.work.ua/" + jobDescriptionList.select("a").attr("href").toString();
-        company.setLink(companyLink);
-        Elements contacts = jobDescriptionList.select("dt:contains(Контактна особа:)+dd");
-        if (!contacts.isEmpty()) {
-            job.setContact(contacts.first().text());
-        }
-        Elements contactPhones = jobDescriptionList.select("dt:contains(Телефон:)+dd");
+                if (!contactPhones.isEmpty()) {
+                    job.setContactNumber(contactPhones.first().text());
+                }
+                job.setHeader(doc.select("h1").first().text());
+                if (job.getLink().contains("ua")) {
+                    job.setCountry("Украина");
+                }
+                Elements cities = jobDescriptionList.select("dt:contains(Місто:)+dd");
+                if (!cities.isEmpty())
+                    job.setCity(cities.first().text());
+                job.setSendResumeLink("stub");
+                job.setDescription(doc.select(".overflow").first().text());
+            }
 
-        if (!contactPhones.isEmpty()) {
-            job.setContactNumber(contactPhones.first().text());
         }
-        job.setHeader(doc.select("h1").first().text());
-        if (job.getLink().contains("ua")) {
-            job.setCountry("Украина");
-        }
-        Elements cities = jobDescriptionList.select("dt:contains(Місто:)+dd");
-        if (!cities.isEmpty())
-            job.setCity(cities.first().text());
-        job.setSendResumeLink("stub");
-        job.setDescription(doc.select(".overflow").first().text());
+
+
     }
 }
 

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface JobsParser {
 
-    List<Job> parseJobs();
+    List<Job> parseJobs(boolean isFirstParsingRoutine);
 }
