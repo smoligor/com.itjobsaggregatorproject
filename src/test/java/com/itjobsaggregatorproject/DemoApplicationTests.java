@@ -1,7 +1,7 @@
 package com.itjobsaggregatorproject;
 
-import com.itjobsaggregatorproject.Parser.JobsParser;
-import com.itjobsaggregatorproject.Service.JobsService;
+import com.itjobsaggregatorproject.parser.JobsParser;
+import com.itjobsaggregatorproject.service.JobsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
