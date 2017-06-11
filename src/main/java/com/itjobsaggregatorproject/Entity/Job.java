@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Job {
     @Id
     String id;
+    int index;
     String header;
     String description;
     String city;

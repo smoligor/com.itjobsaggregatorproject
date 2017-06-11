@@ -45,9 +45,11 @@ public class WorkUaJobsParserImpl implements JobsParser {
         }
         pageLinks.forEach(e -> jobLinks.addAll(parseJobLinksFromPage(e)));
         for (String jobLink : jobLinks) {
+            int index = 1;
             Job job = new Job();
-            parseJob(jobLink, job);
+            parseJob(jobLink, job, index);
             jobs.add(job);
+            index++;
         }
         return jobs;
     }
@@ -65,7 +67,7 @@ public class WorkUaJobsParserImpl implements JobsParser {
         return jobLinks;
     }
 
-    private void parseJob(String jobLink, Job job) {
+    private void parseJob(String jobLink, Job job, int index) {
         Document doc = null;
         try {
             doc = Jsoup.connect(jobLink).get();
@@ -78,6 +80,7 @@ public class WorkUaJobsParserImpl implements JobsParser {
                 Element jobDescriptionList = elements.first();
                 Company company = new Company();
                 job.setLink(jobLink);
+                job.setIndex(index);
                 company.setName(jobDescriptionList.select("dt:contains(Компанія:)+dd").first().text());
                 String companyLink = "https://www.work.ua/" + jobDescriptionList.select("a").attr("href").toString();
                 company.setLink(companyLink);
