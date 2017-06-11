@@ -7,10 +7,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class}) //disable password
-public class ItJobsAggregatorApplication {
+public class ItJobAggregatorApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ItJobsAggregatorApplication.class, args);
+        SpringApplication.run(ItJobAggregatorApplication.class, args);
     }
 
 }

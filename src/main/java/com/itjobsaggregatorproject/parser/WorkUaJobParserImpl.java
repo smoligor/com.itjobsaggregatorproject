@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class WorkUaJobsParserImpl implements JobsParser {
+public class WorkUaJobParserImpl implements JobParser {
     @Override
     public List<Job> parseJobs(boolean isFirstParsingRoutine) {
 

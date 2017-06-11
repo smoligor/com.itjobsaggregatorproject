@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class JobsServiceImpl implements JobsService {
+public class JobServiceImpl implements JobService {
     @Autowired
     JobDao jobDao;
 
