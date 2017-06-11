@@ -5,7 +5,7 @@ import com.itjobsaggregatorproject.entity.Job;
 import java.util.List;
 import java.util.Optional;
 
-public interface JobsService {
+public interface JobService {
 
     public Optional<Job> getById(String id);
 

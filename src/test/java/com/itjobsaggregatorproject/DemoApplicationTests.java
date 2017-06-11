@@ -1,7 +1,7 @@
 package com.itjobsaggregatorproject;
 
-import com.itjobsaggregatorproject.parser.JobsParser;
-import com.itjobsaggregatorproject.service.JobsService;
+import com.itjobsaggregatorproject.parser.JobParser;
+import com.itjobsaggregatorproject.service.JobService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +12,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class DemoApplicationTests {
     @Autowired
-    JobsParser jobsParser;
+    JobParser jobParser;
     @Autowired
-    JobsService jobsService;
+    JobService jobService;
 
     @Test
     public void contextLoads() {
