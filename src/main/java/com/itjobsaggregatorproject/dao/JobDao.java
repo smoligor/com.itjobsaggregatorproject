@@ -1,6 +1,6 @@
-package com.itjobsaggregatorproject.Dao;
+package com.itjobsaggregatorproject.dao;
 
-import com.itjobsaggregatorproject.Entity.Job;
+import com.itjobsaggregatorproject.entity.Job;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 

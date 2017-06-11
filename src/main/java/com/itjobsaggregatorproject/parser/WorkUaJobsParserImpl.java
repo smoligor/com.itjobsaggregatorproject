@@ -1,7 +1,7 @@
-package com.itjobsaggregatorproject.Parser;
+package com.itjobsaggregatorproject.parser;
 
-import com.itjobsaggregatorproject.Entity.Company;
-import com.itjobsaggregatorproject.Entity.Job;
+import com.itjobsaggregatorproject.entity.Company;
+import com.itjobsaggregatorproject.entity.Job;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

@@ -1,6 +1,6 @@
-package com.itjobsaggregatorproject.Service;
+package com.itjobsaggregatorproject.service;
 
-import com.itjobsaggregatorproject.Entity.Job;
+import com.itjobsaggregatorproject.entity.Job;
 
 import java.util.List;
 import java.util.Optional;

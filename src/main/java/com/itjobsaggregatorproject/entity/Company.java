@@ -1,4 +1,4 @@
-package com.itjobsaggregatorproject.Entity;
+package com.itjobsaggregatorproject.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

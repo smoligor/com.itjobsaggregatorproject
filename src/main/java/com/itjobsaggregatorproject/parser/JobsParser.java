@@ -1,6 +1,6 @@
-package com.itjobsaggregatorproject.Parser;
+package com.itjobsaggregatorproject.parser;
 
-import com.itjobsaggregatorproject.Entity.Job;
+import com.itjobsaggregatorproject.entity.Job;
 
 import java.util.List;
 

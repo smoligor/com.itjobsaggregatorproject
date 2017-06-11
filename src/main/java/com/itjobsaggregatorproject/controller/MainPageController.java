@@ -1,7 +1,7 @@
-package com.itjobsaggregatorproject.Controller;
+package com.itjobsaggregatorproject.controller;
 
-import com.itjobsaggregatorproject.Entity.Job;
-import com.itjobsaggregatorproject.Service.JobsService;
+import com.itjobsaggregatorproject.entity.Job;
+import com.itjobsaggregatorproject.service.JobsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +19,14 @@ import static org.springframework.http.HttpStatus.OK;
 public class MainPageController {
     @Autowired
     JobsService jobsService;
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/all")
+    @CrossOrigin(origins = "http://localhost:3000")
     @ResponseStatus(OK)
     public List<Job> getJobs() {
         return jobsService.getAll();
 
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/random")
     @ResponseStatus(OK)

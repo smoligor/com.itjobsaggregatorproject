@@ -1,4 +1,4 @@
-package com.itjobsaggregatorproject.Parser;
+package com.itjobsaggregatorproject.parser;
 
 public interface ParserScheduler {
 

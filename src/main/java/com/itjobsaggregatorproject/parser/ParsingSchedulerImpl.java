@@ -1,7 +1,7 @@
-package com.itjobsaggregatorproject.Parser;
+package com.itjobsaggregatorproject.parser;
 
-import com.itjobsaggregatorproject.Entity.Job;
-import com.itjobsaggregatorproject.Service.JobsService;
+import com.itjobsaggregatorproject.entity.Job;
+import com.itjobsaggregatorproject.service.JobsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

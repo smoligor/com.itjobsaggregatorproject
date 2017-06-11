@@ -1,7 +1,7 @@
-package com.itjobsaggregatorproject.Service;
+package com.itjobsaggregatorproject.service;
 
-import com.itjobsaggregatorproject.Dao.JobDao;
-import com.itjobsaggregatorproject.Entity.Job;
+import com.itjobsaggregatorproject.dao.JobDao;
+import com.itjobsaggregatorproject.entity.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

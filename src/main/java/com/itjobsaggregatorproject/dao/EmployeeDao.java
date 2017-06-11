@@ -1,6 +1,6 @@
-package com.itjobsaggregatorproject.Dao;
+package com.itjobsaggregatorproject.dao;
 
-import com.itjobsaggregatorproject.Entity.Employee;
+import com.itjobsaggregatorproject.entity.Employee;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface EmployeeDao extends MongoRepository<Employee, String> {
