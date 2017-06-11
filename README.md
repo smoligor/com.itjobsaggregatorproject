@@ -1,4 +1,5 @@
 # README #
+https://itjobsaggregator.herokuapp.com/jobs/all адрес задеплоенного проекта.
 Залита основная структура приложения и парсер для work.ua Который заливает вакансии в mongodb. Для корректной работы нужно установка mongodb. Гайд по установке Mongodb : https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 Приложение не запускается через мейн. Нужно Запускать через mvn spring-boot:run
 Для запросов на контроллеры нужно использовать localhost:8080
