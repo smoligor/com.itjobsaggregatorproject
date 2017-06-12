@@ -17,11 +17,10 @@ public class ParsingSchedulerImpl implements ParserScheduler {
     private JobParser jobsParser;
     @Autowired
     private JobCache jobCache;
-    final int oneHour = 3600 * 1000;
+    private final int oneHour = 3600 * 1000;
 
     @Scheduled(fixedRate = oneHour) //every hour execution
     public void parseJobsFromWorkUaEveryHour() {
-
         boolean isFirstRoutine = true;
         System.out.println("Starting parsing work.ua routine...");
 

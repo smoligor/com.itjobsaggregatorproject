@@ -17,14 +17,12 @@ public class JobServiceImpl implements JobService {
     @Transactional
     @Override
     public Optional<Job> getById(String id) {
-
         return jobDao.findById(id);
     }
 
     @Transactional
     @Override
     public void save(Job job) {
-
         jobDao.save(job);
     }
 
