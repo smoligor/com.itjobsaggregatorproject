@@ -14,7 +14,7 @@ public class ParsingSchedulerImpl implements ParserScheduler {
     @Autowired
     private JobService jobService;
     @Autowired
-    private JobsParser jobsParser;
+    private JobParser jobsParser;
     @Autowired
     private JobCache jobCache;
     final int oneHour = 3600 * 1000;
