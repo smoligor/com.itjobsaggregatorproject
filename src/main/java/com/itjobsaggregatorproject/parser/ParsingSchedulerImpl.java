@@ -28,6 +28,7 @@ public class ParsingSchedulerImpl implements ParserScheduler {
         if (jobService.getAll().size() > 100) {
             isFirstRoutine = false;
         }
+        jobCache.getCache().addAll(jobService.getAll());
         List<Job> parsedJobs = jobsParser.parseJobs(isFirstRoutine);
         List<Job> persistedJobs = jobService.getAll();
         parsedJobs.removeAll(persistedJobs);

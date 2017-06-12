@@ -20,7 +20,6 @@ public class JobCache {
     @PostConstruct
     public void init() {
         cache = new ConcurrentHashSet<>();
-        cache.addAll(jobService.getAll());
     }
 
 }
