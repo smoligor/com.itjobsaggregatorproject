@@ -4,7 +4,7 @@ import com.itjobsaggregatorproject.entity.Job;
 
 import java.util.List;
 
-public interface JobsParser {
+public interface JobParser {
 
     List<Job> parseJobs(boolean isFirstParsingRoutine);
 }
