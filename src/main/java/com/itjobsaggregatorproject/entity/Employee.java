@@ -8,9 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Employee {
     @Id
-    String id;
-    String name;
-    String surname;
+    private String id;
+    private String name;
+    private String surname;
 
 
 }

@@ -4,22 +4,21 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 @Document
 @Data
 public class Job {
     @Id
-    String id;
-    int index;
-    String header;
-    String description;
-    String city;
-    String country;
-    Company company;
-    String link;
-    String contact;
-    String contactNumber;
-    String sendResumeLink;
+    private String id;
+    private int index;
+    private String header;
+    private String description;
+    private String city;
+    private String country;
+    private Company company;
+    private String link;
+    private String contact;
+    private String contactNumber;
+    private String sendResumeLink;
 
     @Override
     public boolean equals(Object o) {
