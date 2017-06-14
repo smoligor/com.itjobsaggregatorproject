@@ -43,7 +43,6 @@ public class HhUaJobParserImpl implements JobParser {
 
     private List<Job> parseJobsFromSource() {
         List<Job> jobs = new ArrayList<>();
-        System.out.println(jobLinksList.size() + " number of job links");
         jobLinksList.forEach(e -> {
             int index = 1;
             driver.get(e);
@@ -58,7 +57,6 @@ public class HhUaJobParserImpl implements JobParser {
             job.setCity(doc.select("div.l-paddings").get(4).text());
             Company company = new Company();
             company.setName(doc.select(".companyname").text());
-            // System.out.println(doc.select(".companyname").html());
             doc = Jsoup.parse(doc.select(".companyname").html());
             String companyLink = "https://hh.ua/"+doc.select("a").first().tagName("href").attr("href");
             company.setLink(companyLink);
@@ -69,7 +67,6 @@ public class HhUaJobParserImpl implements JobParser {
             index++;
             jobs.add(job);
         });
-        System.out.println(jobs.size());
         return jobs;
     }
 
