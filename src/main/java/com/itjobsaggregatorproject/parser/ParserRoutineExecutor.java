@@ -31,7 +31,7 @@ public class ParserRoutineExecutor {
             isFirstRoutine = false;
         }
         jobCache.getCache().addAll(jobService.getAll());
-        List<Job> parsedJobs = jobParser.parseJobs(true);
+        List<Job> parsedJobs = jobParser.parseJobs(isFirstRoutine);
         List<Job> persistedJobs = jobService.getAll();
         parsedJobs.removeAll(persistedJobs);
         jobCache.getCache().addAll(parsedJobs);
