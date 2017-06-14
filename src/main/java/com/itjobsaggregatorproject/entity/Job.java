@@ -14,6 +14,7 @@ public class Job {
     private String description;
     private String city;
     private String country;
+    private String salary;
     private Company company;
     private String link;
     private String contact;

@@ -1,39 +1,44 @@
 package com.itjobsaggregatorproject.parser;
 
 import com.itjobsaggregatorproject.cache.JobCache;
-import com.itjobsaggregatorproject.entity.Job;
 import com.itjobsaggregatorproject.service.JobService;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class ParsingSchedulerImpl implements ParserScheduler {
+    @Qualifier("hhUa")
     @Autowired
-    private JobService jobService;
+    JobParser hhUaJobParser;
+    @Qualifier("workUa")
     @Autowired
-    private JobParser jobsParser;
+    JobParser workUaJobParser;
+
     @Autowired
-    private JobCache jobCache;
+    JobService jobService;
+    @Autowired
+    JobCache jobCache;
     private final int oneHour = 3600 * 1000;
 
-    @Scheduled(fixedRate = oneHour) //every hour execution
-    public void parseJobsFromWorkUaEveryHour() {
-        boolean isFirstRoutine = true;
-        System.out.println("Starting parsing work.ua routine...");
+    private void deleteAutdatedJobs() {
+        WebDriver driver = new HtmlUnitDriver();
 
-        if (jobService.getAll().size() > 100) {
-            isFirstRoutine = false;
-        }
-        jobCache.getCache().addAll(jobService.getAll());
-        List<Job> parsedJobs = jobsParser.parseJobs(isFirstRoutine);
-        List<Job> persistedJobs = jobService.getAll();
-        parsedJobs.removeAll(persistedJobs);
-        jobCache.getCache().addAll(parsedJobs);
-        parsedJobs.forEach(jobService::save);
-        System.out.println("Parsing work.ua routine ended. " + parsedJobs.size() + " new jobs added.");
     }
+
+    @Scheduled(fixedRate = oneHour) //every hour execution
+    public void parseJobsEveryHour() {
+        //creating two runnable instances  with different parser implementations
+        // and running two threads that parse jobs
+        Runnable hhUaRunnable = () -> new ParserRoutineExecutor().parse(jobService, jobCache, hhUaJobParser);
+        Runnable workUaRunnable = () -> new ParserRoutineExecutor().parse(jobService, jobCache, workUaJobParser);
+        new Thread(workUaRunnable).start();
+        new Thread(hhUaRunnable).start();
+    }
+
+
 }
 

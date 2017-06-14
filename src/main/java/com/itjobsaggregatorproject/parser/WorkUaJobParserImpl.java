@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
+@Component("workUa")
 public class WorkUaJobParserImpl implements JobParser {
     @Override
     public List<Job> parseJobs(boolean isFirstParsingRoutine) {
@@ -82,7 +82,7 @@ public class WorkUaJobParserImpl implements JobParser {
                 job.setLink(jobLink);
                 job.setIndex(index);
                 company.setName(jobDescriptionList.select("dt:contains(Компанія:)+dd").first().text());
-                String companyLink = "https://www.work.ua/" + jobDescriptionList.select("a").attr("href").toString();
+                String companyLink = "https://www.work.ua/" + jobDescriptionList.select("a").attr("href");
                 company.setLink(companyLink);
                 Elements contacts = jobDescriptionList.select("dt:contains(Контактна особа:)+dd");
                 if (!contacts.isEmpty()) {
