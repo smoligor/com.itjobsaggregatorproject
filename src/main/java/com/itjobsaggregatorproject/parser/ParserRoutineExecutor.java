@@ -16,10 +16,10 @@ public class ParserRoutineExecutor {
         String parserSimpleName = jobParser.getClass().getSimpleName();
         String websiteString = "";
         if (parserSimpleName.equals("HhUaJobParserImpl")) {
-            websiteString = "https://hh.ua";
+            websiteString = "hh.ua";
         }
         if (parserSimpleName.equals("WorkUaJobParserImpl")) {
-            websiteString = "https://work.ua";
+            websiteString = "work.ua";
         }
         String finalLinkWebSiteLink = websiteString;
         System.out.println("Starting parsing " + parserSimpleName + " routine...");
@@ -30,11 +30,12 @@ public class ParserRoutineExecutor {
                 .collect(Collectors.toList()).size() > 100) {
             isFirstRoutine = false;
         }
-        jobCache.getCache().addAll(jobService.getAll());
+        System.out.println(isFirstRoutine + " is first routine " + parserSimpleName);
+        jobCache.addAll(jobService.getAll());
         List<Job> parsedJobs = jobParser.parseJobs(isFirstRoutine);
         List<Job> persistedJobs = jobService.getAll();
         parsedJobs.removeAll(persistedJobs);
-        jobCache.getCache().addAll(parsedJobs);
+        jobCache.addAll(parsedJobs);
         parsedJobs.forEach(jobService::save);
         System.out.println("Parsing " + jobParser.getClass().getSimpleName() + " routine ended. " + parsedJobs.size()
                 + " new jobs added.");

@@ -29,7 +29,7 @@ public class MainPageController {
     @ResponseStatus(OK)
     public List<Job> getJobs() {
         List<Job> jobs = new ArrayList<>();
-        jobs.addAll(jobCache.getCache());
+        jobs.addAll(jobCache.getAll());
         return jobs;
     }
 
@@ -38,7 +38,7 @@ public class MainPageController {
     @ResponseStatus(OK)
     public Job getRandomJob() {
         List<Job> jobs = new ArrayList<>();
-        jobs.addAll(jobCache.getCache());
+        jobs.addAll(jobCache.getAll());
         return jobs.get(new Random().nextInt(jobs.size()));
     }
 }

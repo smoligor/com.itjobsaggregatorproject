@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.lang.Thread.sleep;
+
 @Component("workUa")
 public class WorkUaJobParserImpl implements JobParser {
     @Override
@@ -45,12 +47,20 @@ public class WorkUaJobParserImpl implements JobParser {
         }
         pageLinks.forEach(e -> jobLinks.addAll(parseJobLinksFromPage(e)));
         for (String jobLink : jobLinks) {
+            try {
+                sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             int index = 1;
             Job job = new Job();
             parseJob(jobLink, job, index);
             jobs.add(job);
+            System.out.println(job.getHeader() + "     work.ua");
             index++;
+
         }
+        ParsingSchedulerImpl.threadsCompletedTheirTask++;
         return jobs;
     }
 
@@ -74,36 +84,40 @@ public class WorkUaJobParserImpl implements JobParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (doc != null) {
-            Elements elements = doc.select("dl");
-            if (elements != null) {
-                Element jobDescriptionList = elements.first();
-                Company company = new Company();
-                job.setLink(jobLink);
-                job.setIndex(index);
-                company.setName(jobDescriptionList.select("dt:contains(Компанія:)+dd").first().text());
-                String companyLink = "https://www.work.ua/" + jobDescriptionList.select("a").attr("href");
-                company.setLink(companyLink);
-                Elements contacts = jobDescriptionList.select("dt:contains(Контактна особа:)+dd");
-                if (!contacts.isEmpty()) {
-                    job.setContact(contacts.first().text());
-                }
-                Elements contactPhones = jobDescriptionList.select("dt:contains(Телефон:)+dd");
+        try {
+            if (doc != null) {
+                Elements elements = doc.select("dl");
+                if (elements != null) {
+                    Element jobDescriptionList = elements.first();
+                    Company company = new Company();
+                    job.setLink(jobLink);
+                    job.setIndex(index);
+                    company.setName(jobDescriptionList.select("dt:contains(Компанія:)+dd").first().text());
+                    String companyLink = "https://www.work.ua/" + jobDescriptionList.select("a").attr("href");
+                    company.setLink(companyLink);
+                    Elements contacts = jobDescriptionList.select("dt:contains(Контактна особа:)+dd");
+                    if (!contacts.isEmpty()) {
+                        job.setContact(contacts.first().text());
+                    }
+                    Elements contactPhones = jobDescriptionList.select("dt:contains(Телефон:)+dd");
 
-                if (!contactPhones.isEmpty()) {
-                    job.setContactNumber(contactPhones.first().text());
+                    if (!contactPhones.isEmpty()) {
+                        job.setContactNumber(contactPhones.first().text());
+                    }
+                    job.setHeader(doc.select("h1").first().text());
+                    if (job.getLink().contains("ua")) {
+                        job.setCountry("Украина");
+                    }
+                    Elements cities = jobDescriptionList.select("dt:contains(Місто:)+dd");
+                    if (!cities.isEmpty())
+                        job.setCity(cities.first().text());
+                    job.setSendResumeLink("stub");
+                    job.setDescription(doc.select(".overflow").first().text());
                 }
-                job.setHeader(doc.select("h1").first().text());
-                if (job.getLink().contains("ua")) {
-                    job.setCountry("Украина");
-                }
-                Elements cities = jobDescriptionList.select("dt:contains(Місто:)+dd");
-                if (!cities.isEmpty())
-                    job.setCity(cities.first().text());
-                job.setSendResumeLink("stub");
-                job.setDescription(doc.select(".overflow").first().text());
+
             }
-
+        } catch (NullPointerException e) {
+            //do nothing
         }
     }
 }

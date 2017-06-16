@@ -17,6 +17,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static java.lang.Thread.sleep;
+
 @Component("hhUa")
 public class HhUaJobParserImpl implements JobParser {
     WebDriver driver = new HtmlUnitDriver();
@@ -44,6 +46,11 @@ public class HhUaJobParserImpl implements JobParser {
     private List<Job> parseJobsFromSource() {
         List<Job> jobs = new ArrayList<>();
         jobLinksList.forEach(e -> {
+            try {
+                sleep(400);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
             int index = 1;
             driver.get(e);
             String pageSource = driver.getPageSource();
@@ -65,8 +72,10 @@ public class HhUaJobParserImpl implements JobParser {
             job.setCompany(company);
             job.setSalary(doc.select(".l-paddings").get(4).text());
             index++;
+            System.out.println(job.getHeader()+ "    hh.ua");
             jobs.add(job);
         });
+        ParsingSchedulerImpl.threadsCompletedTheirTask++;
         return jobs;
     }
 
